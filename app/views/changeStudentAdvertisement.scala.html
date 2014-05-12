@@ -1,0 +1,69 @@
+@(student: Student, stForm: play.data.Form[Application.StudentAdvertisementForm], studentAdv: StudentAdvertisement, src: Long)
+
+@main("Start"){
+
+<html>
+    <head>
+    	<div class="box">
+        <title>Change StudentAdvertisement</title>
+        </div>
+    </head>
+    <body>
+    <!--
+        <header>
+            <span>New student advertisement</span>
+        </header>
+     -->
+     
+     
+     <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "changeStudentAdvertisement")
+     
+     
+        
+    
+    <div class="box">
+         <div class="background_center">
+	    <a class="log" href="@routes.Application.logout()">Logout</a></font>
+	    <a class="log" href="@routes.Application.index()">Home</a></font>    	    
+	 	 &nbsp;
+	
+	<div class="background_center3">
+		<div class="titlefont">@(student.getLanguage().studentAdvertisement())</div>
+	</div>
+	
+	<div class="background_center"> &nbsp;</div>
+    
+	    <div class="background center">
+	    
+		@if(studentAdv != null){
+		@helper.form(routes.Application.changeStudAdvertisementForm(studentAdv.getId(),src)) {	
+        	<font color="white">@(student.getLanguage().alreadyStudentAdvertisement())</font>
+			<div class="input button">
+		    	<p>
+					<input type="studies" name="studies" placeholder=@(student.getLanguage().course()) value="@(studentAdv.getCourse())">
+				</p>
+				<p>
+					<textarea  type="description" name="description" placeholder=@(studentAdv.getDescription()) value="@(studentAdv.getDescription())">@(studentAdv.getDescription())</textarea>
+				</p>
+				<p>
+					<button type="submit">@(student.getLanguage().save())</button>
+				</p>
+			</div>
+		   
+			@if(stForm.hasGlobalErrors) {
+			<p class="error">
+				@stForm.globalError.message
+			</p>
+			}
+		
+			@if(flash.contains("success")) {
+				<p class="success">
+					@flash.get("success")
+				</p>
+			}
+		}	
+		}
+    </body>
+</html>
+}

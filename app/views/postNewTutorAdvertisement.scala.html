@@ -1,0 +1,106 @@
+@(student: Student, tuForm: play.data.Form[Application.TutorAdvertisementForm], tutorAdv: TutorAdvertisement, src: Long)
+
+@main("Start"){
+
+<html>
+    <head>
+        <title>New StudentAdvertisement</title>
+    </head>
+    <body>
+    
+        <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "postNewTutorAdvertisement src:"+src)
+
+
+     <div class="background_center">
+	    <a class="log" href="@routes.Application.logout()">Logout</a></font>
+	    <a class="log" href="@routes.Application.index()">Home</a></font>    	    
+	 	 &nbsp;
+	
+	<div class="background_center3">
+		<div class="titlefont">@(student.getLanguage().tutorAdvertisement())</div>
+	</div>
+	
+	<div class="background_center"> &nbsp;</div>
+ 
+        
+        <div class="box">
+	    <div class="background center">  	
+        @if(tutorAdv != null) {
+        	<font color="white">@(student.getLanguage().alreadyTutorAdvertisement())</font>
+        	
+        	
+        	 @helper.form(routes.Application.addNewTutAdvertisementForm(src)) {
+					<div class="input button">
+					   <p>@(student.getLanguage().course())</br>
+					       <input type="studies" name="studies" placeholder="@(student.getLanguage().course())" value="@tutorAdv.getCourse()">
+					   </p> 
+					   <p>@tutorAdv.getDescription()</br>
+					       <textarea type="description" name="description" placeholder=@tutorAdv.getDescription() value="@tutorAdv.getDescription()">@tutorAdv.getDescription()</textarea>
+					   </p>
+					   <p>@(student.getLanguage().price()) (@student.getLanguage().euroPerHour())</br>
+					       <input type="price" name="price" placeholder="@(student.getLanguage().price()) (@(student.getLanguage().euroPerHour()))" value="@tutorAdv.getPrice()">
+					   </p>
+						<p>
+						<input type="checkbox" name="test">Dit is een test-Advertentie<br>
+						</p>
+					   <p>
+					       <button type="submit">@(student.getLanguage().post())</button>
+					   </p>
+					   
+					   
+					   @if(tuForm.hasGlobalErrors) {
+					    <p class="error">
+					        @tuForm.globalError.message
+					    </p>
+						}
+					
+						@if(flash.contains("success")) {
+						    <p class="success">
+						        @flash.get("success")
+						    </p>
+						}
+        			</div>
+        	}
+        	
+        	
+        }else{
+			@helper.form(routes.Application.addNewTutAdvertisementForm(src)) {
+				<div class="input button">
+				<p>@(student.getLanguage().course())</br>
+					<input type="studies" name="studies" placeholder=@(student.getLanguage().course()) value="@tuForm("studies").value">
+			    </p>
+				<p>@(student.getLanguage().description())</br>
+					<textarea type="description" name="description" placeholder=@(student.getLanguage().description()) value="@tuForm("description").value"></textarea>
+				</p>
+				<p>@(student.getLanguage().price()) (@student.getLanguage().euroPerHour())</br>
+					<input type="price" name="price" placeholder= "@(student.getLanguage().price()) (@student.getLanguage().euroPerHour())" value="@tuForm("price").value">
+				</p>
+				<p>
+					<input type="checkbox" name="test">Dit is een test-Advertentie<br>
+				</p>
+				<p>
+					<button type="submit">@(student.getLanguage().post())</button>
+				</p>
+   				</div>
+			    @if(tuForm.hasGlobalErrors) {
+				    <p class="error">
+				        @tuForm.globalError.message
+				    </p>
+				}
+			
+				@if(flash.contains("success")) {
+				    <p class="success">
+				        @flash.get("success")
+				    </p>
+				}
+			
+			}
+		}
+
+		</div>
+    	</div>
+    </body>
+</html>
+
+}

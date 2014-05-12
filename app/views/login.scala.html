@@ -1,0 +1,53 @@
+@(form: play.data.Form[Application.Login])
+
+@main("Start"){
+
+<html>
+    <head>
+        <title>Login</title>
+    </head>
+    <body>
+<!--        <header>
+            <a href="@routes.Application.index" id="logo"><span>Login</span></a>
+        </header>
+ -->
+        
+    @helper.form(routes.Application.authenticate) {
+    	<div class="box">
+	    <div class="background center">
+	    <img class="center logo" src="@routes.Assets.at("images/testStedunt.png")" width="100%">  
+	    <div class="titlefont">Aanmelden</div> 
+			<p>Email</br>
+				<input type="email" name="email" placeholder="Email" class="input" value="@form("email").value">
+			</p>
+			<p>Wachtwoord</br>
+				<input type="password" name="password" placeholder="Wachtwoord">
+			</p>
+			
+			<form>
+				<button type="button" value="Register" onclick="window.location.href='@routes.Application.register()'">Registreer</button>
+			</form>
+			<button type="submit">Login</button>
+			
+   
+			@if(form.hasGlobalErrors) {
+		    <p class="error">
+		        @form.globalError.message
+		    </p>
+			}
+		
+			@if(flash.contains("success")) {
+			    <p class="success">
+			        @flash.get("success")
+			    </p>
+			}
+		</div>
+		</div>
+
+
+}
+    
+    </body>
+</html>
+
+}

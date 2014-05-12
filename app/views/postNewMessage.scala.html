@@ -1,0 +1,42 @@
+@(form: play.data.Form[Application.MessageForm], id: Long)
+
+
+<html>
+    <head>
+        <title>New Message</title>
+    </head>
+    <body>
+    
+    	
+        	
+        	 @helper.form(routes.Application.addNewMessageForm(id)) {
+					   <div class="titlefont">New Message</div>
+					
+					   <p>
+					       <input type="text" name="text" placeholder="text" value="@form("text").value">
+					   </p>
+					   <p>
+					       <button type="submit">Submit</button>
+					   </p>
+					   
+					   
+					   @if(form.hasGlobalErrors) {
+					    <p class="error">
+					        @form.globalError.message
+					    </p>
+						}
+					
+						@if(flash.contains("success")) {
+						    <p class="success">
+						        @flash.get("success")
+						    </p>
+						}
+        	
+        	}
+        	
+
+
+
+    
+    </body>
+</html>

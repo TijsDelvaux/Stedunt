@@ -1,0 +1,44 @@
+@(student: Student, students:List[Student])
+
+
+@main("Start") {
+    
+<html>
+    <body>
+     
+     
+     
+     </br>
+    </br>
+    
+ 
+ @if(student.email.equals("sergehendrickx@gmail.com")){
+
+    	@for(index <- 0 until students.size){
+    		
+    			<h2>@students(index).email </br></h2>
+    			@students(index).name </br>
+    			@students(index).lastName </br>
+    			@students(index).password </br>
+    			@students(index).language </br>
+    			@students(index).studies </br>
+    			
+    			@for(index2 <- 0 until students(index).statistics.size){
+    				@students(index).statistics(index2).date
+    				@students(index).statistics(index2).page
+    				</br>
+    				}
+    				</br>
+    			
+
+    		
+		}
+		
+		
+		}
+
+    </body>
+</html>
+        
+    
+}

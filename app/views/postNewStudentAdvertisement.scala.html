@@ -1,0 +1,103 @@
+@(student: Student, stForm: play.data.Form[Application.StudentAdvertisementForm], studentAdv: StudentAdvertisement, src: Long)
+
+@main("Start"){
+
+<html>
+    <head>
+    	<div class="box">
+        <title>New StudentAdvertisement</title>
+        </div>
+    </head>
+    <body>
+    
+    <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "postNewStudentAdvertisement src:"+src)
+
+        
+    
+    <div class="box">
+
+     <div class="background_center">
+	    <a class="log" href="@routes.Application.logout()">Logout</a></font>
+	    <a class="log" href="@routes.Application.index()">Home</a></font>    	    
+	 	 &nbsp;
+	
+	<div class="background_center3">
+		<div class="titlefont">@(student.getLanguage().studentAdvertisement())</div>
+	</div>
+	
+	<div class="background_center"> &nbsp;</div>
+
+
+    
+	    <div class="background center">
+	    
+		@if(studentAdv != null){
+		@helper.form(routes.Application.addNewStudAdvertisementForm(src)) {	
+        	<font color="white">@(student.getLanguage().alreadyStudentAdvertisement())</font>
+			<div class="input button">
+		    	<p>@(studentAdv.getCourse())
+					<input type="studies" name="studies" placeholder=@(student.getLanguage().course()) value="@(studentAdv.getCourse())">
+				</p>
+				<p>@(studentAdv.getDescription())
+					<textarea  type="description" name="description" placeholder=@(studentAdv.getDescription()) value="@(studentAdv.getDescription())"></textarea>
+				</p>
+				<p>
+					<input type="checkbox" name="test">Dit is een test-Advertentie<br>
+				</p>
+				<p>
+					<button type="submit">@(student.getLanguage().post())</button>
+				</p>
+				
+				
+				
+			</div>
+		   
+			@if(stForm.hasGlobalErrors) {
+			<p class="error">
+				@stForm.globalError.message
+			</p>
+			}
+		
+			@if(flash.contains("success")) {
+				<p class="success">
+					@flash.get("success")
+				</p>
+			}
+		}	
+		}else{
+		@helper.form(routes.Application.addNewStudAdvertisementForm(src)) {
+			<div class="input button">
+		    	<p>@(student.getLanguage().course())</br>
+					<input type="studies" name="studies" placeholder=@(student.getLanguage().course()) value="@stForm("course").value">
+				</p>
+				<p>@(student.getLanguage().description())</br>
+					<textarea  type="description" name="description" placeholder=@(student.getLanguage().description()) value="@stForm("description").value"></textarea>
+				</p>
+				<input type="checkbox" name="test">Dit is een test-Advertentie<br>
+				<p>
+					<button type="submit">@(student.getLanguage().post())</button>
+				</p>
+			</div>
+		   
+			@if(stForm.hasGlobalErrors) {
+			<p class="error">
+				@stForm.globalError.message
+			</p>
+			}
+		
+			@if(flash.contains("success")) {
+				<p class="success">
+					@flash.get("success")
+				</p>
+			}
+		}
+		</div>
+		
+	</div>
+	
+
+}
+    </body>
+</html>
+}

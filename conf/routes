@@ -1,0 +1,53 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           controllers.Application.index()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+GET     /login                  controllers.Application.login()
+POST    /login                  controllers.Application.authenticate()
+
+GET     /logout                     controllers.Application.logout()
+
+GET     /register                  controllers.Application.register()
+POST    /register                  controllers.Application.registerNewUser()
+
+GET     /advertisements            controllers.Application.viewAllAdvertisements()
+
+GET     /myOwnAdvertisements            controllers.Application.viewMyOwnAdvertisements()
+
+
+GET		/newStAdv						controllers.Application.addNewStudAdvertisement(src:Long)
+POST	/newStAdv					controllers.Application.addNewStudAdvertisementForm(src:Long)
+
+GET		/changeStAdv				controllers.Application.changeStudAdvertisement(id:Long, src:Long)
+POST	/changeStAdv				controllers.Application.changeStudAdvertisementForm(id:Long, src:Long)
+
+GET		/newTutAdv						controllers.Application.addNewTutAdvertisement(src:Long)
+POST	/newTutAdv					controllers.Application.addNewTutAdvertisementForm(src:Long)
+
+GET		/newMessage						controllers.Application.addNewMessage(id:Long)
+POST	/newMessage						controllers.Application.addNewMessageForm(id:Long)
+
+
+GET		/myAdvertisements					controllers.Application.viewMyAdvertisements()
+
+GET		/Facebook						controllers.Application.viewFacebook()
+
+#GET     /messages            controllers.Application.viewMyMessages()
+GET		/conversations		 controllers.Application.viewMyConversations()
+GET		/conversation		 controllers.Application.viewMyConversation(id:Long)
+
+GET		/deleteStAdv 		 controllers.Application.deleteStudAdvertisement(id:Long, src:Long)
+GET		/deleteTutAdv 		 controllers.Application.deleteTutAdvertisement(id:Long, src:Long)
+															
+# start page         
+GET     /start                 controllers.Application.start()
+
+
+GET     /admin                 controllers.Application.admin()

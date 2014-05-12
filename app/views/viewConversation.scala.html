@@ -1,0 +1,90 @@
+@(student: Student, conversation: Conversation, form: play.data.Form[Application.MessageForm])
+
+
+@main("Start") {
+    
+<html>
+    <body>
+     <a class="log" href="@routes.Application.logout()">Logout</a></font> 
+     <a class="log" href="@routes.Application.index()">Home</a></font>
+     <a class="log" href="@routes.Application.viewMyConversations()" >@(student.getLanguage().messages())</a>
+     
+     
+     
+     
+     </br>
+    </br>
+    
+     <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "viewConversation")
+    
+    <!-- 
+    <header>
+			<div class="box">
+				<div class="left">
+					Conversations
+				</div>
+				<div class="right">
+					Logged in as @student.name
+					<a class="log" href="@routes.Application.logout()">Logout</a>
+				</div>
+			</div
+    </header>
+    -->
+    <article  class="conversations">
+    	@for(index <- 0 until conversation.messages.size){
+    		@if(conversation.messages(index).getSender() != student){
+	    		<div class="bubble">   
+	    			<div class="bubbleHeader"> 		
+		   			 @conversation.messages(index).getSender().getName() @conversation.messages(index).getSender().getLastName() 
+		   			 (@conversation.messages(index).getSimpleDate()):</br>
+		   			 </div>
+		   			 <div class="bubbleBody">
+		   			 @conversation.messages(index).getText()</br>
+		   			 </div>
+				 </div>
+			 }else{
+			 	<div class="bubbleMe">    	
+			 		<div class="bubbleHeader"> 		
+		   			 @conversation.messages(index).getSender().getName() @conversation.messages(index).getSender().getLastName() 
+		   			 (@conversation.messages(index).getSimpleDate()):</br>
+		   			  </div>
+		   			  <div class="bubbleBody">
+		   			 @conversation.messages(index).getText()</br>
+		   			  </div>
+				</div>
+			 }
+   		}
+   		</br>
+   		
+   		@helper.form(routes.Application.addNewMessageForm(conversation.id)) {
+					
+		   <p>
+		       <input type="textarea" name="text" placeholder="@(student.getLanguage().newMessage())" value="@form("text").value">
+		   </p>
+		   <p>
+		       <button type="submit">@(student.getLanguage().submit())</button>
+		   </p>
+		   		   
+		   @if(form.hasGlobalErrors) {
+			    <p class="error">
+			        @form.globalError.message
+			    </p>
+			}
+		
+			@if(flash.contains("success")) {
+			    <p class="success">
+			        @flash.get("success")
+			    </p>
+			}
+        	
+        }
+   		
+    </article>
+
+
+    </body>
+</html>
+        
+    
+}

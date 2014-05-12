@@ -1,0 +1,36 @@
+@(student: Student)
+
+
+@main("Start") {
+    
+<html>
+
+
+    <div class="background_center">
+	    <a class="log" href="@routes.Application.logout()">Logout</a></font>
+	    <a class="log" href="@routes.Application.index()">Home</a></font>    	    
+	 	 &nbsp;
+	
+	<div class="background_center3">
+		<div class="titlefont">stEDUnt</div>
+	</div>
+	
+	<div class="background_center"> &nbsp;</div>
+	
+	 <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "start")
+		
+    <body>
+    	<div class=background>
+    			<a href="@routes.Application.viewAllAdvertisements()"  class="lb">@(student.getLanguage().viewAdvertisements())</a></br>
+                <a href="@routes.Application.viewMyOwnAdvertisements()" class="lb">@(student.getLanguage().myAdvertisements())</a></br>
+                <a href="@routes.Application.viewMyConversations()"  class="lb">@(student.getLanguage().messages())</a>
+                Unread: @Application.numberOfUnreadMessagesOf(student)</br></br>
+                <!--<a href="@routes.Application.viewFacebook()"  class="lb">Facebook</a></br>-->
+    	</div>            
+
+    </body>
+</html>
+        
+    
+}

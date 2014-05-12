@@ -1,0 +1,179 @@
+@(student: Student, studAdvertisements: List[StudentAdvertisement], tutAdvertisements: List[TutorAdvertisement])
+
+
+@main("Start") {
+    
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/tabs.css")">
+
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+		<script>
+			// Wait until the DOM has loaded before querying the document
+			$(document).ready(function(){
+				$('ul.tabs').each(function(){
+					// For each set of tabs, we want to keep track of
+					// which tab is active and it's associated content
+					var $active, $content, $links = $(this).find('a');
+
+					// If the location.hash matches one of the links, use that as the active tab.
+					// If no match is found, use the first link as the initial active tab.
+					$active = $($links.filter('[href="'+location.hash+'"]')[0] || $links[0]);
+					$active.addClass('active');
+
+					$content = $($active[0].hash);
+
+					// Hide the remaining content
+					$links.not($active).each(function () {
+						$(this.hash).hide();
+					});
+
+					// Bind the click event handler
+					$(this).on('click', 'a', function(e){
+						// Make the old tab inactive.
+						$active.removeClass('active');
+						$content.hide();
+
+						// Update the variables with the new link and content
+						$active = $(this);
+						$content = $(this.hash);
+
+						// Make the tab active.
+						$active.addClass('active');
+						$content.show();
+
+						// Prevent the anchor's default click action
+						e.preventDefault();
+					});
+				});
+			});
+		</script>
+		
+		
+		
+		
+	</head>
+	
+    <body>
+    
+            <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "viewOwnAdvertisements")
+
+    
+    
+	<div class="background_center">
+	    <a class="log" href="@routes.Application.logout()">Logout</a></font>
+	    <a class="log" href="@routes.Application.index()">Home</a></font>    	    
+	 	 &nbsp;
+	
+	<div class="background_center3">
+		<div class="titlefont">@(student.getLanguage().myAdvertisements())</div>
+	</div>
+	
+</div>
+<div class="background_center"> &nbsp;</div>
+    	
+	
+		<ul class='tabs'>
+			<li><a href="#student">@(student.getLanguage().searchTutor())</a></li>
+			<li><a href="#tutor">@(student.getLanguage().giveTutoring())</a></li>
+		</ul>
+		<div id="student">
+				<article  class="advertisements">
+				
+				@if(!Application.hasStudAdv(student.getEmail())){
+					@(student.getLanguage().notYetAstudentAdvertention())
+					
+					
+				} else{				
+				
+		    	@for(index <- 0 until studAdvertisements.size){
+		    		@if(studAdvertisements(index).getStudent()==student){
+		    		
+		    		
+		    		@if(studAdvertisements(index).isTest()){
+		    			<article class="testadvertisement">
+		    			<div class=testAdv>TEST</div>
+		    		}else{
+		    			<article class="advertisement">
+		    		}
+		    		
+		    		
+		    		
+		    		<h2 style="color:black"> @(student.getLanguage().advertisement()) @index
+		    				<a href="@routes.Application.deleteStudAdvertisement(studAdvertisements(index).getId(),2)">
+		    					<img class="center logo" src="@routes.Assets.at("images/Button-Delete-icon.png")" width="15">
+		    				</a>
+			    			<a href="@routes.Application.changeStudAdvertisement(studAdvertisements(index).getId(),2)">
+			   			 		<img class="center logo" src="@routes.Assets.at("images/edit-icon.png")" width="15"></h2>
+			   			 	</a>
+			   		 @(student.getLanguage().studies()): @studAdvertisements(index).getStudent().getStudies()</br>
+		   			 @(student.getLanguage().course()): @studAdvertisements(index).getCourse()</br>
+		   			 @(student.getLanguage().description()): @studAdvertisements(index).getDescription() </br>		   			 
+
+		   			 
+		   			 }
+		   			 </article>
+			   			 
+			   		}
+			   		}
+			   		</br>
+			   		<a href="@routes.Application.addNewStudAdvertisement(2)" class="lb">@(student.getLanguage().placeAdvertisement())</a> 
+			   		
+			    </article>
+		</div>
+		
+		<div id="tutor">
+				<article  class="advertisements">
+				
+				@if(!Application.hasTutAdv(student.getEmail())){
+					@(student.getLanguage().notYetATutorAdvertention())</br>
+					<a href="@routes.Application.addNewTutAdvertisement(2)" class="lb">@(student.getLanguage().placeAdvertisement())</a>
+					
+					
+				} else{				
+				
+				
+		    	@for(index <- 0 until tutAdvertisements.size){
+		    		@if(tutAdvertisements(index).getStudent()==student){
+		    			
+		    			
+		    			@if(tutAdvertisements(index).isTest()){
+		    			<article class="testadvertisement">
+		    			<div class=testAdv>TEST</div>
+		    		}else{
+		    			<article class="advertisement">
+		    		}
+		    			
+		    		<h2 style="color:black">  @(student.getLanguage().advertisement())
+		    				<a href="@routes.Application.deleteTutAdvertisement(tutAdvertisements(index).getId(),2)">
+		    					<img class="center logo" src="@routes.Assets.at("images/Button-Delete-icon.png")" width="13">
+		    				</a>
+		    				<a href="@routes.Application.addNewTutAdvertisement(2)">
+			   			 		<img class="center logo" src="@routes.Assets.at("images/edit-icon.png")" width="15"></h2>
+			   			 	</a>
+		    		</h2>
+		   			 @tutAdvertisements(index).getStudent().getName() @tutAdvertisements(index).getStudent().getLastName()</br>
+		   			 @(tutAdvertisements(index).getStudent().getLanguage().studies()): @(tutAdvertisements(index).getStudent().getStudies())</br>
+		   			 @(student.getLanguage().course()): @tutAdvertisements(index).getCourse()</br>
+		   			 @(student.getLanguage().description()): @tutAdvertisements(index).getDescription() </br>
+		   			 @(student.getLanguage().price()): @tutAdvertisements(index).getPrice() @(student.getLanguage().euroPerHour())  </br></br>
+		   			 
+		   			 }
+		   			  </article>
+		   		}
+		   		}
+		   		
+		   		
+		    	</article>
+		</div>
+
+
+    </body>
+</html>
+        
+    
+}

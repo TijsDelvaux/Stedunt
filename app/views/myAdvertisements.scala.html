@@ -1,0 +1,37 @@
+@(student: Student)
+
+
+@main("Start") {
+    
+<html>
+
+    <body>
+    
+    <!-- STATISTICS TRACKING -->
+     @student.newPage(new Date(), "myAdvertisements")
+   
+    
+         <div class="background_center">
+	    <a class="log" href="@routes.Application.logout()">Logout</a></font>
+	    <a class="log" href="@routes.Application.index()">Home</a></font>    	    
+	 	 &nbsp;
+	
+	<div class="background_center3">
+		<div class="titlefont">@(student.getLanguage().myAdvertisements())</div>
+	</div>
+	
+	<div class="background_center"> &nbsp;</div>
+    
+		<div class="background">
+				@(student.getLanguage().postAdvertisement())
+                <a href="@routes.Application.addNewStudAdvertisement(1)"  class="lb">@(student.getLanguage().searchTutor())</a></br>
+                <a href="@routes.Application.addNewTutAdvertisement(1)"  class="lb">@(student.getLanguage().giveTutoring())</a></br>
+                @(student.getLanguage().changeAdvertisements())
+                <a href="@routes.Application.viewMyOwnAdvertisements()" class="lb">@(student.getLanguage().myAdvertisements())</a></br>
+		</div>                
+
+    </body>
+</html>
+        
+    
+}
