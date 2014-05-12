@@ -17,7 +17,7 @@ public class TutorAdvertisement extends Advertisement{
 	@Column(columnDefinition = "NUMERIC")
 	 public BigDecimal price;
 	
-	public TutorAdvertisement(Student student, String studies, String description, double price, boolean testAd){
+	public TutorAdvertisement(Student student, String studies, String description, BigDecimal price, boolean testAd){
 		super(student,studies,description, testAd);
 		this.price = price;
 	}
