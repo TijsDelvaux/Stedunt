@@ -18,7 +18,7 @@ public class Global extends GlobalSettings {
 	    	
 	    	Student ine = new Student("ine@gmail.com", "Ine", "Jannsens",	"pass",Language.Nederlands, "Burgie");
 	    	ine.save();
-	    	TutorAdvertisement t = new TutorAdvertisement(ine, "aa", "bb", BigDecimal(20),true);
+	    	TutorAdvertisement t = new TutorAdvertisement(ine, "aa", "bb", new BigDecimal(20),true);
 	    	t.save();
 	    	
 	    	
