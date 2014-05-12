@@ -1,4 +1,4 @@
-name := "stEDUnt"
+name := "stedunt"
 
 version := "1.0-SNAPSHOT"
 
