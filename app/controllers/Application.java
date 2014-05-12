@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Advertisement;
+import java.math.BigDecimal;
 import models.Conversation;
 import models.Language;
 import models.Message;
@@ -568,7 +569,7 @@ public class Application extends Controller {
 
         public String studies;
     	public String description;
-    	public double price;
+    	public BigDecimal price;
     	public boolean test;
         
         public String validate() {      
